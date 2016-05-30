@@ -1,0 +1,15 @@
+<h1>Home</h1>
+<div class="container" ng-controller="APIController">
+  <div class="col-md-6">
+
+    <select class="petDropdown" name="petSelector" ng-model="selectAnimal" ng-options="pet for pet in listPets">
+
+    </select>
+    <button ng-click="getRandomAnimal(selectAnimal)">Find Random {{selectAnimal}}</button>
+    <h2>{{animal.name.$t}}</h2>
+    <p>{{animal.description.$t}}</p>
+    <img ng-src="{{animal.media.photos.photo[3].$t}}"></img>
+    <button ng-click="addToFavorites()">Add to Favorites</button>
+  </div>
+
+</div>

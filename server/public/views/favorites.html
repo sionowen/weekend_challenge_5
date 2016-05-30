@@ -1,0 +1,14 @@
+<h1>Favorites</h1>
+<div class="container" ng-controller="APIController">
+  <div class="row " ng-repeat="pet in favorites">
+    <div class="col-md-6 col-md-offset-3">
+      <h2>{{pet.petName}}</h2>
+      <p>{{pet.petId}}</p>
+      <p>{{pet.description}}</p>
+
+      <img ng-src="{{pet.imgURL}}"/>
+
+    </div>
+  </div>
+
+</div>
