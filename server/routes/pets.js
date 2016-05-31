@@ -8,7 +8,6 @@ router.get('/', function (req, res) {
       res.sendStatus(500);
       return;
     }
-
     res.send(pets);
   });
 });
