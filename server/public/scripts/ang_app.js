@@ -17,7 +17,6 @@ myApp.config(['$routeProvider', function($routeProvider) {
 
 
 myApp.controller('APIController', ['$scope', '$http', function($scope, $http) {
-  console.log('APIController running');
   var key = 'dbe92a3331ae40f8de244e72527278c5';
   var baseURL = 'http://api.petfinder.com/';
   $scope.breed = '';
