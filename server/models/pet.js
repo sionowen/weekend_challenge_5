@@ -7,6 +7,7 @@ var PetSchema = new Schema({
   petName: { type: String, required: false},
   imgURL: { type: String, required: false},
   description: { type: String, required: false},
+  species: {type: String, required: true},
 });
 
 var Pet = mongoose.model('Pet', PetSchema);

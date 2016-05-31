@@ -55,8 +55,8 @@ myApp.controller('APIController', ['$scope', '$http', function($scope, $http) {
       petId: $scope.animal.id.$t,
       petName: $scope.animal.name.$t,
       imgURL: $scope.animal.media.photos.photo[3].$t,
-      description: $scope.animal.description.$t.substr(0,100)
-
+      description: $scope.animal.description.$t.substr(0,100),
+      species: $scope.animal.animal.$t
     }
 
 
@@ -76,10 +76,10 @@ myApp.controller('APIController', ['$scope', '$http', function($scope, $http) {
 
         });
 
-        $scope.favorites = response.data;
-        console.log($scope.favorites);
+        $scope.favorites = _(response.data).sortBy('species').value();
+        console.log('scope favorites', $scope.favorites);
         $scope.count = $scope.favorites.length;
-        console.log($scope.count);
+        console.log('count', $scope.count);
       })
   }
 
