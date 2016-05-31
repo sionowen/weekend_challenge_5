@@ -17,11 +17,14 @@ myApp.config(['$routeProvider', function($routeProvider) {
 
 
 myApp.controller('APIController', ['$scope', '$http', function($scope, $http) {
+  console.log('APIController running');
   var key = 'dbe92a3331ae40f8de244e72527278c5';
   var baseURL = 'http://api.petfinder.com/';
   $scope.breed = '';
+  $scope.selectAnimal = 'dog';
   $scope.listPets = ['barnyard', 'bird', 'cat', 'dog', 'horse', 'pig', 'reptile', 'smallfurry']
   $scope.animal = {};
+  getFavorites();
   $scope.getRandomAnimal = function(targetAnimal) {
     var query = 'pet.getRandom';
     query += '?key=' + key;
@@ -42,7 +45,7 @@ myApp.controller('APIController', ['$scope', '$http', function($scope, $http) {
       }
     )
   }
-  getFavorites();
+
   // petId: { type: String, required: true },
   // petName: { type: String, required: false},
   // imgURL: { type: String, required: false},
