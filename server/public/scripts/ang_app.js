@@ -16,14 +16,16 @@ myApp.config(['$routeProvider', function($routeProvider) {
 }]);
 
 
-myApp.controller('APIController', ['$scope', '$http', function($scope, $http) {
+myApp.controller('APIController', ['$scope', '$http', 'DataFactory', function($scope, $http, DataFactory ) {
+
   var key = 'dbe92a3331ae40f8de244e72527278c5';
   var baseURL = 'http://api.petfinder.com/';
+  $scope.dataFactory = DataFactory;
   $scope.breed = '';
   $scope.selectAnimal = 'dog';
   $scope.listPets = ['barnyard', 'bird', 'cat', 'dog', 'horse', 'pig', 'reptile', 'smallfurry']
   $scope.animal = {};
-  getFavorites();
+
   $scope.getRandomAnimal = function(targetAnimal) {
     var query = 'pet.getRandom';
     query += '?key=' + key;
@@ -58,29 +60,36 @@ myApp.controller('APIController', ['$scope', '$http', function($scope, $http) {
       species: $scope.animal.animal.$t
     }
 
-
-    $http.post('/pet', data)
-      .then(function() {
-        console.log('Post /pets')
-        getFavorites();
-      })
-
+    $scope.dataFactory.factorySaveFavorite(data).then(function(){
+      $scope.count = $scope.dataFactory.factoryGetFavorites().length;
+    })
 
   }
 
-  function getFavorites(){
-    $http.get('/pet/favorites')
-      .then(function (response){
-        response.data.forEach(function (pet){
 
-        });
+  $scope.favorites = [];
+  $scope.count = 0;
 
-        $scope.favorites = _(response.data).sortBy('species').value();
-        console.log('scope favorites', $scope.favorites);
+
+
+    if($scope.dataFactory.factoryGetFavorites() === undefined) {
+      $scope.dataFactory.factoryRefreshFavoriteData().then(function(){
+        $scope.favorites = _($scope.dataFactory.factoryGetFavorites()).sortBy('species').value();
         $scope.count = $scope.favorites.length;
-        console.log('count', $scope.count);
-      })
-  }
+      });
+
+    } else{
+      $scope.favorites = _($scope.dataFactory.factoryGetFavorites()).sortBy('species').value();
+      $scope.count = $scope.favorites.length;
+    }
+
+
+        // $scope.favorites = _(response.data).sortBy('species').value();
+        // console.log('scope favorites', $scope.favorites);
+        // $scope.count = $scope.favorites.length;
+        // console.log('count', $scope.count);
+
+
 
 
 
